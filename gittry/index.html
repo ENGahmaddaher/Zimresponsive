@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ZIM - Code Creativity</title>
+    <script src="https://zimjs.org/cdn/1.5.0/createjs.js"></script>
+    <script type="module">
+      import zim from "https://zimjs.org/cdn/017/zim";
+      const scale = "full";
+      const width = 1024;
+      const height = 768;
+      const color = light;
+      const outcolor = dark;
+      const frame = new Frame(scale, undefined, undefined, color, outcolor);
+      frame.on("ready", () => {
+        const stage = frame.stage;
+        let stageW = frame.width;
+        let stageH = frame.height;
+        const left = new Container(100, 300).addTo(stage);
+        const pad = new Pad(60, 1, 4, [1, 2, 3, 4], green).center(left); //       عمود واحد و 4 صفوف
+        const middle = new Container(500, 500).addTo(stage);
+        const title = new Label({
+          text: "zim responsive laayout ",
+          color: white,
+        })
+          .scaleTo(middle, 80)
+          .pos(0, 50, CENTER, TOP, middle);
+        const right = new Container(100, 550).addTo(stage);
+        const cp = new ColorPicker({
+          colors: [pink, red, purple, orange, blue],
+          cols: 6,
+          circles: true,
+          backgroundColor: clear,
+        })
+          .rot(-90)
+          .center(right);
+        const manager = new ResizeManager();
+        manager.add(
+          new Layout(
+            stage,
+            [
+              { object: left, backgroundColor: darker },
+              { object: middle, backgroundColor: orange },
+              { object: right, align: CENTER, minWidth: 20, maxHeight: 90 },
+            ],
+            0,
+            null,
+            false,
+            new Shape()
+          )
+        ); // اذا لدينا اي شيء مثل جريد بيجيس نقوم بعمل نفس الشيء واضافته لل ماناجير
+        // const rect = new Rectangle(50, 50, red);
+        // const grid = new Grid();
+        frame.on("resize", () => {
+          stageW = frame.width;
+          stageH = frame.height;
+          manager.resize();
+          // grid.resize();
+          // rect.scaleTo(stage, 50, 50).loc(stageW * 0.2, stageH * 0.2); // جعله في المنتصف وعرضه 50 بالمية من عرض الستيج الكلي و50 من الطول
+        });
+        stage.update();
+      });
+    </script>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+  </head>
+  <body></body>
+</html>
